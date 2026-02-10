@@ -1,0 +1,7 @@
+{
+  "name": "CIMS Online Services",
+  "description": "A comprehensive service portal for government ID applications, digital certificates, and online bill payments in Hyderabad.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
