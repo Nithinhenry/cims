@@ -1,188 +1,183 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  const servicesList = [
+    "Aadhar & PAN Services",
+    "Certificates & Registrations",
+    "Banking & Bill Payments",
+    "Tickets & Bookings"
+  ];
+
+  useEffect(() => {
+    const handleType = () => {
+      const i = loopNum % servicesList.length;
+      const fullText = servicesList[i];
+
+      setText(isDeleting 
+        ? fullText.substring(0, text.length - 1) 
+        : fullText.substring(0, text.length + 1)
+      );
+
+      setTypingSpeed(isDeleting ? 80 : 150);
+
+      if (!isDeleting && text === fullText) {
+        setTimeout(() => setIsDeleting(true), 1500);
+      } else if (isDeleting && text === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+      }
+    };
+
+    const timer = setTimeout(handleType, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, typingSpeed]);
+
+  const floatingVisuals = [
+    { icon: 'badge', top: '10%', right: '15%', delay: '0s', label: 'ID Card', color: 'primary' },
+    { icon: 'article', top: '35%', right: '35%', delay: '2s', label: 'Document', color: 'secondary' },
+    { icon: 'currency_rupee', top: '65%', right: '12%', delay: '4s', label: 'Rupee', color: 'primary' },
+    { icon: 'credit_card', top: '20%', right: '5%', delay: '1.5s', label: 'Credit Card', color: 'primary' },
+    { icon: 'electrical_services', top: '50%', right: '22%', delay: '3.5s', label: 'Utility Bill', color: 'secondary' },
+    { icon: 'local_activity', top: '75%', right: '30%', delay: '5.5s', label: 'Bus Ticket', color: 'primary' },
+  ];
+
   return (
     <div className="overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative pt-12 pb-20 lg:pt-24 lg:pb-32">
-        {/* Background decorative blobs */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl -z-10"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-3xl -z-10"></div>
+      {/* Hero Section: Minimalist Abstract Background */}
+      <section className="relative pt-20 pb-24 lg:pt-40 lg:pb-48 hero-gradient min-h-[95vh] flex items-center">
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <div className="space-y-8 text-center lg:text-left">
-              <div>
-                <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-sm font-bold mb-4 border border-primary/20">
-                  Trusted in Ramanthapur, Hyderabad
+        {/* Abstract Background Elements */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          {/* Faint shapes on the left */}
+          <div className="absolute top-[20%] left-[5%] w-64 h-64 bg-primary/5 rounded-full shape-blur animate-pulse-slow"></div>
+          <div className="absolute bottom-[30%] left-[15%] w-48 h-48 bg-secondary/5 rounded-full shape-blur animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+
+          {/* Floating Cluster on the Right half */}
+          {floatingVisuals.map((item, idx) => (
+            <div 
+              key={idx}
+              className="hidden lg:flex absolute flex-col items-center justify-center p-6 bg-white/40 backdrop-blur-xl rounded-3xl border border-white/60 shadow-2xl animate-float-spiral group hover:bg-white/60 transition-all duration-500 card-3d opacity-80"
+              style={{ 
+                top: item.top, 
+                right: item.right, 
+                animationDelay: item.delay,
+              }}
+            >
+              <div className="motion-blur-trail">
+                <span className={`material-icons-round text-5xl ${item.color === 'primary' ? 'text-primary' : 'text-secondary'}`}>
+                  {item.icon}
                 </span>
-                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.15]">
-                  Simplifying <span className="text-primary relative inline-block">
-                    Digital Services
-                    <svg className="absolute w-full h-3 -bottom-1 left-0 text-primary opacity-30" fill="none" viewBox="0 0 200 9" xmlns="http://www.w3.org/2000/svg"><path d="M2.00025 6.99997C25.7501 9.99995 232.5 0.25 10 2.00022" stroke="currentColor" strokeWidth="3"></path></svg>
-                  </span> for Everyone
+              </div>
+              <span className="mt-2 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{item.label}</span>
+            </div>
+          ))}
+
+          {/* Mobile Simplified Shapes */}
+          <div className="lg:hidden absolute inset-0 opacity-40">
+            <div className="absolute top-10 right-10 w-24 h-24 bg-primary/10 rounded-full animate-float"></div>
+            <div className="absolute bottom-40 right-5 w-20 h-20 bg-secondary/10 rounded-full animate-float-reverse"></div>
+          </div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Left Content (Clean half) */}
+            <div className="space-y-10 text-center lg:text-left">
+              <div>
+                <span className="inline-block py-1.5 px-6 rounded-full bg-secondary/10 text-secondary text-xs font-black mb-8 border border-secondary/20 uppercase tracking-[0.3em] shadow-sm">
+                  Government & Online Services
+                </span>
+                <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black tracking-tighter text-gray-900 leading-[1.05]">
+                  CIMS <br />
+                  <span className="text-primary typewriter-cursor min-h-[1.2em] inline-block">
+                    {text}
+                  </span>
                 </h1>
-                <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                  Your one-stop destination for Mee Seva services, Government ID applications, certificates, and online bill payments. Fast, reliable, and secure assistance right in your neighborhood.
+                <p className="mt-8 text-lg md:text-xl text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                  Ramanthapur's leading digital hub for Aadhaar, PAN, Certificates, Banking, and utility services. Experience speed, transparency, and expert support.
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link to="/services" className="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-xl text-white bg-primary hover:bg-primary-dark transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start pt-4">
+                <Link to="/services" className="inline-flex items-center justify-center px-12 py-5 border border-transparent text-base font-black rounded-2xl text-white bg-primary hover:bg-primary-dark transition-all duration-300 shadow-xl shadow-primary/30 hover:scale-[1.03] hover:shadow-2xl uppercase tracking-widest active:scale-95">
                   View Services
                 </Link>
-                <Link to="/contact" className="inline-flex items-center justify-center px-8 py-3.5 border-2 border-secondary text-base font-semibold rounded-xl text-secondary hover:bg-secondary hover:text-white transition-all duration-200 hover:-translate-y-1">
+                <Link to="/contact" className="inline-flex items-center justify-center px-12 py-5 border-2 border-secondary text-base font-black rounded-2xl text-secondary hover:bg-secondary hover:text-white transition-all duration-300 hover:scale-[1.03] uppercase tracking-widest active:scale-95">
                   Contact Us
                 </Link>
               </div>
-
-              <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-gray-500 text-sm font-medium">
-                <div className="flex items-center gap-2">
-                  <span className="material-icons-round text-secondary text-lg">check_circle</span>
-                  <span>Verified Center</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="material-icons-round text-secondary text-lg">check_circle</span>
-                  <span>Quick Process</span>
-                </div>
-              </div>
             </div>
 
-            {/* Visual Content */}
-            <div className="relative flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                <img 
-                  src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Modern Digital Office" 
-                  className="object-cover w-full h-full transform transition hover:scale-105 duration-700" 
-                />
-                {/* Floating Cards Overlay */}
-                <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl border border-gray-100 flex items-center gap-3 animate-bounce" style={{ animationDuration: '3s' }}>
-                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                    <span className="material-icons-round">verified</span>
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-gray-500 font-medium">Status</p>
-                    <p className="text-sm font-bold text-gray-900">Approved</p>
-                  </div>
-                </div>
-                <div className="absolute top-10 -right-6 bg-white p-4 rounded-xl shadow-xl border border-gray-100 flex items-center gap-3 animate-pulse">
-                  <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
-                    <span className="material-icons-round">payment</span>
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-gray-500 font-medium">Payment</p>
-                    <p className="text-sm font-bold text-gray-900">Secure</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Right half is intentionally kept for the abstract floating visuals */}
+            <div className="hidden lg:block"></div>
           </div>
         </div>
       </section>
 
-      {/* Core Services Section */}
-      <section className="py-20 bg-white">
+      {/* Expertise Row */}
+      <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Core Services</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">We assist with a wide range of government and private digital services to save your time and effort.</p>
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">Expert Digital Solutions</h2>
+            <div className="w-24 h-2 bg-primary mx-auto rounded-full"></div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Service 1 */}
-            <div className="group bg-background-light p-8 rounded-2xl border border-gray-100 hover:border-primary/30 shadow-sm hover:shadow-xl transition-all duration-300">
-              <div className="w-14 h-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <span className="material-icons-round text-3xl">badge</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Government IDs</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                Assistance with new applications and corrections for Aadhaar Card, PAN Card, Voter ID, and Passport services.
-              </p>
-              <Link to="/services" className="inline-flex items-center text-primary font-bold text-sm hover:translate-x-1 transition-transform">
-                Learn more <span className="material-icons-round text-sm ml-1">arrow_forward</span>
-              </Link>
-            </div>
-
-            {/* Service 2 */}
-            <div className="group bg-background-light p-8 rounded-2xl border border-gray-100 hover:border-secondary/30 shadow-sm hover:shadow-xl transition-all duration-300">
-              <div className="w-14 h-14 bg-green-100 text-secondary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <span className="material-icons-round text-3xl">assignment</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Certificates</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                Get your Birth, Income, Caste, and Residence certificates quickly. We also help with land registration documents.
-              </p>
-              <Link to="/services" className="inline-flex items-center text-secondary font-bold text-sm hover:translate-x-1 transition-transform">
-                Learn more <span className="material-icons-round text-sm ml-1">arrow_forward</span>
-              </Link>
-            </div>
-
-            {/* Service 3 */}
-            <div className="group bg-background-light p-8 rounded-2xl border border-gray-100 hover:border-blue-400/30 shadow-sm hover:shadow-xl transition-all duration-300">
-              <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <span className="material-icons-round text-3xl">account_balance</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Bill Payments</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                Instant money transfers, utility bill payments (Electricity, Water), mobile recharges, and insurance premium payments.
-              </p>
-              <Link to="/services" className="inline-flex items-center text-blue-600 font-bold text-sm hover:translate-x-1 transition-transform">
-                Learn more <span className="material-icons-round text-sm ml-1">arrow_forward</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Info Strip Section */}
-      <section className="py-20 bg-primary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden grid lg:grid-cols-2">
-            <div className="p-10 lg:p-16 flex flex-col justify-center">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Visit Our Center</h2>
-              <div className="space-y-8">
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                    <span className="material-icons-round">location_on</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 text-lg">RTC Colony Office</h4>
-                    <p className="text-gray-600 mt-1 leading-relaxed">
-                      3-10-26/35, RTC Colony,<br />
-                      Ramanthapur, Uppal, Medchal-Malkajgiri,<br />
-                      Hyderabad, Telangana - 500013
-                    </p>
-                  </div>
+          <div className="grid md:grid-cols-3 gap-12">
+            {[
+              { title: "Government IDs", icon: "badge", color: "primary", text: "Expert help with Aadhaar enrollment, PAN corrections, Passport applications, and Voter ID registration." },
+              { title: "Certificates", icon: "article", color: "secondary", text: "Timely assistance for Income, Caste, Birth, and Death certificates. We handle the paperwork, you get the result." },
+              { title: "Digital Payments", icon: "account_balance_wallet", color: "primary", text: "Secure utility bill payments, money transfers, mobile recharges, and insurance premium deposits." }
+            ].map((feature, i) => (
+              <div key={i} className="group bg-background-light p-10 rounded-[3rem] border border-gray-100 hover:border-primary/20 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className={`w-20 h-20 ${feature.color === 'primary' ? 'bg-primary shadow-primary/30' : 'bg-secondary shadow-secondary/30'} text-white rounded-[1.8rem] flex items-center justify-center mb-10 shadow-xl group-hover:rotate-6 transition-transform`}>
+                  <span className="material-icons-round text-4xl">{feature.icon}</span>
                 </div>
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary flex-shrink-0">
-                    <span className="material-icons-round">schedule</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 text-lg">Opening Hours</h4>
-                    <p className="text-gray-600 mt-1">
-                      Mon - Sat: 9:00 AM - 8:30 PM<br />Sun: 10:00 AM - 2:00 PM
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-10">
-                <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-colors shadow-lg">
-                  Get Directions <span className="material-icons-round ml-2">near_me</span>
+                <h3 className="text-2xl font-black text-gray-900 mb-5">{feature.title}</h3>
+                <p className="text-gray-600 font-medium leading-relaxed mb-10">{feature.text}</p>
+                <Link to="/services" className={`inline-flex items-center font-black text-xs uppercase tracking-[0.2em] ${feature.color === 'primary' ? 'text-primary' : 'text-secondary'} group/btn`}>
+                  View Details <span className="material-icons-round ml-2 group-hover/btn:translate-x-3 transition-transform">arrow_forward</span>
                 </Link>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Stats */}
+      <section className="bg-secondary py-24 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="gridHome" width="80" height="80" patternUnits="userSpaceOnUse">
+                <path d="M 80 0 L 0 0 0 80" fill="none" stroke="white" strokeWidth="2"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#gridHome)" />
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-16">
+            <div className="text-center md:text-left text-white max-w-2xl">
+              <h2 className="text-4xl lg:text-5xl font-black mb-8">Serving Since 2013</h2>
+              <p className="text-white/80 font-bold text-xl leading-relaxed">As an official Mee Seva partner, CIMS Online Services has helped thousands of families in Ramanthapur navigate government systems with ease.</p>
             </div>
-            <div className="h-96 lg:h-auto relative">
-              <img 
-                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200" 
-                alt="Customer Service Center" 
-                className="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-1000"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            <div className="flex flex-wrap justify-center gap-16 text-white">
+              <div className="text-center">
+                <div className="text-6xl font-black mb-3">500+</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-white/50">Monthly Users</div>
+              </div>
+              <div className="text-center">
+                <div className="text-6xl font-black mb-3">99.9%</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-white/50">Success Rate</div>
+              </div>
             </div>
           </div>
         </div>
