@@ -24,25 +24,25 @@ const Header: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { 
-      name: 'Services', 
-      path: '/services', 
+    {
+      name: 'Services',
+      path: '/services',
       hasDropdown: true,
       categories: [
-        { 
-          name: 'Identity', 
-          icon: 'badge', 
+        {
+          name: 'Identity',
+          icon: 'badge',
           items: [
             { name: 'Aadhar Services', id: 'aadhar' },
             { name: 'PAN Card', id: 'pan' },
             { name: 'Voter ID', id: 'voter' },
             { name: 'Driving Licence', id: 'dl' },
             { name: 'E-Shram Card', id: 'eshram' }
-          ] 
+          ]
         },
-        { 
-          name: 'Certificates', 
-          icon: 'article', 
+        {
+          name: 'Certificates',
+          icon: 'article',
           items: [
             { name: 'Birth Certificate', id: 'birth-cert' },
             { name: 'Death Certificate', id: 'death-cert' },
@@ -50,11 +50,11 @@ const Header: React.FC = () => {
             { name: 'Income Certificate', id: 'income-cert' },
             { name: 'Residence Certificate', id: 'residence-cert' },
             { name: 'Ration Card Work', id: 'ration-card' }
-          ] 
+          ]
         },
-        { 
-          name: 'Business', 
-          icon: 'storefront', 
+        {
+          name: 'Business',
+          icon: 'storefront',
           items: [
             { name: 'Firm Registration', id: 'firm-reg' },
             { name: 'GST Registration', id: 'gst-reg' },
@@ -62,11 +62,11 @@ const Header: React.FC = () => {
             { name: 'MSME / Udyam', id: 'msme-udyam' },
             { name: 'Rental Agreements', id: 'rental-agmt' },
             { name: 'Bank Account Services', id: 'bank-acc' }
-          ] 
+          ]
         },
-        { 
-          name: 'Banking & General', 
-          icon: 'account_balance', 
+        {
+          name: 'Banking & General',
+          icon: 'account_balance',
           items: [
             { name: 'Money Transfer', id: 'money-transfer' },
             { name: 'AEPS & Micro ATM', id: 'aeps' },
@@ -74,7 +74,7 @@ const Header: React.FC = () => {
             { name: 'Utility Bills', id: 'utility-bills' },
             { name: 'PP Photos', id: 'pp-photos' },
             { name: 'DTP & Printing', id: 'dtp-form' }
-          ] 
+          ]
         },
       ]
     },
@@ -96,7 +96,7 @@ const Header: React.FC = () => {
             <span className="material-icons-round text-sm animate-pulse">campaign</span>
             Official Mee Seva hours: 9 AM to 8:30 PM. Visit our Ramanthapur Center!
           </p>
-          <button 
+          <button
             onClick={() => setShowNotify(false)}
             className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 hover:bg-white/20 p-1 rounded-full transition-colors"
           >
@@ -105,40 +105,28 @@ const Header: React.FC = () => {
         </div>
       )}
 
-      <header className={`sticky top-0 z-[1000] w-full transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-xl py-1' : 'bg-white py-2'
-      }`}>
+      <header className={`sticky top-0 z-[1000] w-full transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-xl py-1' : 'bg-white py-2'
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
-            <Link to="/" className="flex items-center group relative z-[1010]">
-              <img 
-                src="cims-logo.svg" 
-                alt="CIMS Online Services" 
-                className="logo-img group-hover:scale-105"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const parent = e.currentTarget.parentElement;
-                  if (parent && !parent.querySelector('.fallback-text')) {
-                    const span = document.createElement('span');
-                    span.className = 'fallback-text text-xl font-black text-primary tracking-tighter';
-                    span.innerText = 'CIMS ONLINE';
-                    parent.appendChild(span);
-                  }
-                }}
+            <Link to="/" className="header__logo">
+              <img
+                src="/logo.png"
+                alt="CIMS ONLINE SERVICES Logo"
+                className="logo-img"
               />
             </Link>
 
             <nav className="hidden md:flex space-x-12 items-center h-full">
               {navLinks.map((link) => (
-                <div 
-                  key={link.name} 
+                <div
+                  key={link.name}
                   className={`h-full flex items-center ${link.hasDropdown ? 'nav-item--services' : ''}`}
                 >
                   <Link
                     to={link.path}
-                    className={`transition-colors font-black text-[11px] uppercase tracking-[0.2em] flex items-center gap-1.5 py-4 ${
-                      isActive(link.path) ? 'text-primary' : 'text-gray-700 hover:text-primary'
-                    }`}
+                    className={`transition-colors font-black text-[11px] uppercase tracking-[0.2em] flex items-center gap-1.5 py-4 ${isActive(link.path) ? 'text-primary' : 'text-gray-700 hover:text-primary'
+                      }`}
                   >
                     {link.name}
                     {link.hasDropdown && <span className="material-icons-round text-sm opacity-50">expand_more</span>}
@@ -157,8 +145,8 @@ const Header: React.FC = () => {
                             <ul className="space-y-3.5">
                               {cat.items.map((item) => (
                                 <li key={item.id}>
-                                  <Link 
-                                    to={`/services#${item.id}`} 
+                                  <Link
+                                    to={`/services#${item.id}`}
                                     className="text-[11px] font-bold text-gray-500 hover:text-primary transition-all flex items-center gap-2 group/item"
                                   >
                                     <span className="w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover/item:opacity-100 transition-all -translate-x-2 group-hover/item:translate-x-0"></span>
@@ -183,7 +171,7 @@ const Header: React.FC = () => {
             </nav>
 
             <div className="md:hidden flex items-center">
-              <button 
+              <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-gray-700 hover:text-primary focus:outline-none p-2.5 rounded-xl transition-colors bg-gray-50 border border-gray-100"
                 aria-label="Toggle menu"
@@ -194,10 +182,9 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        <div 
-          className={`md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 transition-all duration-300 overflow-hidden ${
-            isOpen ? 'max-h-[90vh] opacity-100 visible' : 'max-h-0 opacity-0 invisible'
-          }`}
+        <div
+          className={`md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-[90vh] opacity-100 visible' : 'max-h-0 opacity-0 invisible'
+            }`}
         >
           <div className="px-6 py-6 space-y-2 overflow-y-auto max-h-[80vh] scrollbar-hide">
             {navLinks.map((link) => (
@@ -205,15 +192,14 @@ const Header: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <Link
                     to={link.path}
-                    className={`flex-grow py-5 text-xs font-black uppercase tracking-widest transition-all ${
-                      isActive(link.path) ? 'text-primary' : 'text-gray-900'
-                    }`}
+                    className={`flex-grow py-5 text-xs font-black uppercase tracking-widest transition-all ${isActive(link.path) ? 'text-primary' : 'text-gray-900'
+                      }`}
                     onClick={() => !link.hasDropdown && setIsOpen(false)}
                   >
                     {link.name}
                   </Link>
                   {link.hasDropdown && (
-                    <button 
+                    <button
                       onClick={() => setIsServicesOpen(!isServicesOpen)}
                       className={`p-5 transition-transform duration-300 ${isServicesOpen ? 'rotate-180 text-primary' : 'text-gray-400'}`}
                     >
@@ -221,7 +207,7 @@ const Header: React.FC = () => {
                     </button>
                   )}
                 </div>
-                
+
                 {link.hasDropdown && (
                   <div className="accordion-content pl-4 space-y-8 pb-4">
                     {link.categories?.map((cat) => (
@@ -232,9 +218,9 @@ const Header: React.FC = () => {
                         </div>
                         <div className="grid grid-cols-1 gap-3 pl-6 border-l-2 border-gray-50">
                           {cat.items.map((item) => (
-                            <Link 
-                              key={item.id} 
-                              to={`/services#${item.id}`} 
+                            <Link
+                              key={item.id}
+                              to={`/services#${item.id}`}
                               className="py-1 text-[11px] font-bold text-gray-600 hover:text-primary flex items-center gap-2"
                               onClick={() => setIsOpen(false)}
                             >

@@ -54,6 +54,16 @@ const Contact: React.FC = () => {
                   </div>
 
                   <div className="flex items-start">
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                      <span className="material-icons-round text-3xl">mail</span>
+                    </div>
+                    <div className="ml-6">
+                      <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Email Us</p>
+                      <a href="mailto:support@cimsonlineservices.com" className="text-lg font-black text-gray-900 hover:text-primary transition-colors">support@cimsonlineservices.com</a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
                     <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary">
                       <span className="material-icons-round text-3xl">location_on</span>
                     </div>
@@ -77,7 +87,7 @@ const Contact: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs font-bold text-gray-400">Join 10k+ citizens served locally.</p>
+                  <p className="text-xs font-bold text-gray-400">Served 100k+ in GHMC.</p>
                 </div>
               </div>
 
@@ -86,28 +96,28 @@ const Contact: React.FC = () => {
                 <h2 className="text-2xl font-black text-gray-900 mb-8">Quick Inquiry</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <input 
+                    <input
                       type="text" id="name" required value={formData.name} onChange={handleChange}
-                      className="w-full rounded-2xl bg-gray-50 border-2 border-transparent py-4 px-6 focus:bg-white focus:border-primary/20 font-bold text-gray-900 transition-all outline-none" 
-                      placeholder="Your Full Name" 
+                      className="w-full rounded-2xl bg-gray-50 border-2 border-transparent py-4 px-6 focus:bg-white focus:border-primary/20 font-bold text-gray-900 transition-all outline-none"
+                      placeholder="Your Full Name"
                     />
                   </div>
                   <div className="space-y-2">
-                    <input 
+                    <input
                       type="tel" id="phone" required value={formData.phone} onChange={handleChange}
-                      className="w-full rounded-2xl bg-gray-50 border-2 border-transparent py-4 px-6 focus:bg-white focus:border-primary/20 font-bold text-gray-900 transition-all outline-none" 
-                      placeholder="Phone Number" 
+                      className="w-full rounded-2xl bg-gray-50 border-2 border-transparent py-4 px-6 focus:bg-white focus:border-primary/20 font-bold text-gray-900 transition-all outline-none"
+                      placeholder="Phone Number"
                     />
                   </div>
                   <div className="space-y-2">
-                    <textarea 
+                    <textarea
                       id="message" rows={4} required value={formData.message} onChange={handleChange}
-                      className="w-full rounded-2xl bg-gray-50 border-2 border-transparent py-4 px-6 focus:bg-white focus:border-primary/20 font-bold text-gray-900 transition-all outline-none resize-none" 
+                      className="w-full rounded-2xl bg-gray-50 border-2 border-transparent py-4 px-6 focus:bg-white focus:border-primary/20 font-bold text-gray-900 transition-all outline-none resize-none"
                       placeholder="How can we help?"
                     ></textarea>
                   </div>
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="w-full py-5 bg-primary hover:bg-primary-dark text-white font-black rounded-2xl shadow-xl shadow-primary/30 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 uppercase tracking-widest text-xs"
                     disabled={submitted}
                   >
@@ -124,12 +134,12 @@ const Contact: React.FC = () => {
 
             {/* Map */}
             <div className="bg-white rounded-[4rem] shadow-2xl border-8 border-white overflow-hidden h-[450px] relative group">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.168516017594!2d78.5411784758504!3d17.398939602334808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb996964175b2b%3A0xc368a5293d077e60!2sRTC%20Colony%2C%20Ramanthapur%2C%20Hyderabad%2C%20Telangana%20500013!5e0!3m2!1sen!2sin!4v1716124500000!5m2!1sen!2sin" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.168516017594!2d78.5411784758504!3d17.398939602334808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb996964175b2b%3A0xc368a5293d077e60!2sRTC%20Colony%2C%20Ramanthapur%2C%20Hyderabad%2C%20Telangana%20500013!5e0!3m2!1sen!2sin!4v1716124500000!5m2!1sen!2sin"
                 className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 contrast-125"
-                style={{ border: 0 }} 
-                allowFullScreen={true} 
-                loading="lazy" 
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
                 title="CIMS Ramanthapur Map"
               ></iframe>
               <div className="absolute bottom-10 left-10">
@@ -154,16 +164,16 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div className="space-y-4">
-                  <a 
-                    href="https://wa.me/919966442490" 
-                    target="_blank" 
+                  <a
+                    href="https://wa.me/919966442490"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-3 w-full py-4 bg-[#25D366] text-white font-black rounded-2xl shadow-lg hover:shadow-[#25D366]/30 hover:scale-105 transition-all uppercase tracking-widest text-[10px]"
                   >
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-5 h-5 brightness-0 invert" alt="WhatsApp" />
                     WhatsApp Us
                   </a>
-                  <a 
+                  <a
                     href="tel:+919966442490"
                     className="flex items-center justify-center gap-3 w-full py-4 bg-primary text-white font-black rounded-2xl shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all uppercase tracking-widest text-[10px]"
                   >
@@ -195,15 +205,15 @@ const Contact: React.FC = () => {
       {/* Mobile Sticky Bottom Bar */}
       <div className="lg:hidden fixed bottom-6 left-6 right-6 z-40">
         <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 flex items-center p-3 gap-3 animate-in slide-in-from-bottom-8 duration-500">
-          <a 
-            href="https://wa.me/919966442490" 
+          <a
+            href="https://wa.me/919966442490"
             className="flex-1 flex items-center justify-center gap-2 py-4 bg-[#25D366] text-white font-black rounded-2xl uppercase tracking-widest text-[10px]"
           >
             <span className="material-icons-round text-lg">message</span>
             WhatsApp
           </a>
-          <a 
-            href="tel:+919966442490" 
+          <a
+            href="tel:+919966442490"
             className="flex-1 flex items-center justify-center gap-2 py-4 bg-primary text-white font-black rounded-2xl uppercase tracking-widest text-[10px]"
           >
             <span className="material-icons-round text-lg">phone</span>

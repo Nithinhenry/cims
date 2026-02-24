@@ -1,0 +1,46 @@
+/* ── Header logo ─────────────────────── */
+.header__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 80px;
+  /* adjust to match your header height */
+  width: auto;
+  display: block;
+  object-fit: contain;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  border-radius: 6px;
+  /* softens edges slightly */
+  background: white;
+  /* keeps it clean on any header bg */
+  padding: 2px 6px;
+  /* tiny breathing room around the logo */
+}
+
+.logo-img:hover {
+  transform: scale(1.04);
+  opacity: 0.9;
+}
+
+/* ── Footer logo ─────────────────────── */
+.footer-logo-img {
+  height: 64px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  margin-bottom: 14px;
+}
+
+/* ── Mobile ──────────────────────────── */
+@media (max-width: 768px) {
+  .logo-img {
+    height: 60px;
+  }
+
+  .footer-logo-img {
+    height: 48px;
+  }
+}

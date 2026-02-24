@@ -27,7 +27,9 @@ const servicesData: Category[] = [
       { id: 'pan', name: 'PAN Card', description: 'Application for new Permanent Account Number or corrections/reprint of existing card.', docs: ['Aadhar Card', '2 Passport Size Photos', 'Registered Mobile Number'], keywords: ['pan', 'income tax', 'correction', 'reprint'] },
       { id: 'voter', name: 'Voter ID', description: 'New voter registration, correction of details, or change of address.', docs: ['Aadhar Card', 'Age Proof (SSC)', 'Passport Size Photo', 'Address Proof'], keywords: ['voter', 'election card', 'epic'] },
       { id: 'dl', name: 'Driving Licence', description: 'Learner licence, permanent licence, renewals, and address changes.', docs: ['Aadhar Card', 'Age Proof', 'Address Proof', 'Physical Fitness Declaration'], keywords: ['dl', 'driving', 'licence', 'rto'] },
-      { id: 'eshram', name: 'E-Shram Card', description: 'Registration for unorganized workers to get social security benefits.', docs: ['Aadhar Card', 'Bank Passbook', 'Active Mobile Number'], keywords: ['eshram', 'shramik', 'worker card'] }
+      { id: 'eshram', name: 'E-Shram Card', description: 'Registration for unorganized workers to get social security benefits.', docs: ['Aadhar Card', 'Bank Passbook', 'Active Mobile Number'], keywords: ['eshram', 'shramik', 'worker card'] },
+      { id: 'passport', name: 'Passport Application', description: 'Fresh passport application, renewal, reissue, and address/name changes.', docs: ['Aadhar Card', 'PAN Card', 'Birth Certificate / SSC', 'Address Proof', 'Passport Size Photos', 'Old Passport (for renewal)'], keywords: ['passport', 'travel', 'visa', 'renewal', 'reissue'] },
+      { id: 'company-reg', name: 'Company Registration', description: 'Registration of Private Limited, LLP, OPC, and other company types with MCA.', docs: ['PAN & Aadhar of Directors', 'Address Proof of Office', 'Passport Size Photos', 'Digital Signature Certificate', 'MOA & AOA Drafts'], keywords: ['company', 'registration', 'mca', 'pvt ltd', 'llp', 'opc', 'incorporation'] }
     ]
   },
   {
@@ -92,7 +94,7 @@ const servicesData: Category[] = [
 ];
 
 const Services: React.FC = () => {
-  const [activeCategoryId, setActiveCategoryId] = useState<string>('govt-ids');
+  const [activeCategoryId, setActiveCategoryId] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedService, setSelectedService] = useState<SubService | null>(null);
   const location = useLocation();
@@ -100,7 +102,7 @@ const Services: React.FC = () => {
   useEffect(() => {
     const hash = location.hash.replace('#', '');
     let initialService: SubService | null = null;
-    let initialCatId = 'govt-ids';
+    let initialCatId = 'all';
 
     if (hash) {
       servicesData.forEach(cat => {
@@ -113,8 +115,7 @@ const Services: React.FC = () => {
     }
 
     if (!initialService) {
-      const defaultCat = servicesData.find(c => c.id === initialCatId) || servicesData[0];
-      initialService = defaultCat.services[0];
+      initialService = servicesData[0].services[0];
     }
 
     setActiveCategoryId(initialCatId);
@@ -123,14 +124,17 @@ const Services: React.FC = () => {
 
   const filteredDisplay = useMemo(() => {
     if (searchQuery.trim() === '') {
+      if (activeCategoryId === 'all') {
+        return servicesData;
+      }
       const cat = servicesData.find(c => c.id === activeCategoryId);
-      return cat ? [cat] : [];
+      return cat ? [cat] : servicesData;
     }
 
     const query = searchQuery.toLowerCase();
     return servicesData.map(cat => {
-      const matchedServices = cat.services.filter(s => 
-        s.name.toLowerCase().includes(query) || 
+      const matchedServices = cat.services.filter(s =>
+        s.name.toLowerCase().includes(query) ||
         s.description.toLowerCase().includes(query) ||
         s.keywords.some(k => k.toLowerCase().includes(query))
       );
@@ -148,9 +152,13 @@ const Services: React.FC = () => {
   const handleCategoryChange = (catId: string) => {
     setSearchQuery('');
     setActiveCategoryId(catId);
-    const cat = servicesData.find(c => c.id === catId);
-    if (cat && cat.services.length > 0) {
-      setSelectedService(cat.services[0]);
+    if (catId === 'all') {
+      setSelectedService(servicesData[0].services[0]);
+    } else {
+      const cat = servicesData.find(c => c.id === catId);
+      if (cat && cat.services.length > 0) {
+        setSelectedService(cat.services[0]);
+      }
     }
   };
 
@@ -166,11 +174,11 @@ const Services: React.FC = () => {
                 Instantly find and apply for all CIMS government and utility services.
               </p>
             </div>
-            
+
             <div className="relative group w-full lg:w-[450px]">
               <span className="material-icons-round absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-primary transition-colors text-2xl">search</span>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Search for Aadhar, PAN, GST, PF, Money Transfer..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -183,11 +191,10 @@ const Services: React.FC = () => {
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
             <button
               onClick={() => { setSearchQuery(''); setActiveCategoryId('all'); }}
-              className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
-                activeCategoryId === 'all' && searchQuery === ''
-                  ? 'bg-primary text-white shadow-xl shadow-primary/30' 
+              className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${activeCategoryId === 'all' && searchQuery === ''
+                  ? 'bg-primary text-white shadow-xl shadow-primary/30'
                   : 'bg-white text-gray-400 border border-gray-100 hover:border-primary/20 hover:text-primary'
-              }`}
+                }`}
             >
               All Services
             </button>
@@ -195,11 +202,10 @@ const Services: React.FC = () => {
               <button
                 key={c.id}
                 onClick={() => handleCategoryChange(c.id)}
-                className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
-                  activeCategoryId === c.id && searchQuery === ''
-                    ? 'bg-secondary text-white shadow-xl shadow-secondary/30' 
+                className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${activeCategoryId === c.id && searchQuery === ''
+                    ? 'bg-secondary text-white shadow-xl shadow-secondary/30'
                     : 'bg-white text-gray-400 border border-gray-100 hover:text-secondary'
-                }`}
+                  }`}
               >
                 {c.name.includes('/') ? c.name.split(' / ')[0] : c.name.split(' ')[0]}
               </button>
@@ -211,26 +217,24 @@ const Services: React.FC = () => {
       {/* 3) Main Services UI */}
       <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col lg:flex-row gap-10 items-start">
-          
+
           {/* 3.1 Left Panel - Category List */}
           <div className="hidden lg:block w-72 sticky top-28 h-[calc(100vh-180px)] overflow-y-auto space-y-2 pr-4 scrollbar-hide">
             {servicesData.map(cat => (
               <button
                 key={cat.id}
                 onClick={() => handleCategoryChange(cat.id)}
-                className={`w-full flex items-center justify-between p-5 rounded-2xl transition-all group ${
-                  activeCategoryId === cat.id && searchQuery === ''
+                className={`w-full flex items-center justify-between p-5 rounded-2xl transition-all group ${activeCategoryId === cat.id && searchQuery === ''
                     ? 'bg-gray-900 text-white shadow-2xl'
                     : 'bg-white hover:bg-gray-50 text-gray-500 border border-transparent hover:border-gray-200'
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-4">
                   <span className={`material-icons-round text-2xl ${activeCategoryId === cat.id && searchQuery === '' ? 'text-primary' : 'text-gray-300'}`}>{cat.icon}</span>
                   <span className="text-[10px] font-black uppercase tracking-widest text-left leading-tight">{cat.name}</span>
                 </div>
-                <span className={`text-[9px] font-bold px-2 py-0.5 rounded-lg ${
-                  activeCategoryId === cat.id && searchQuery === '' ? 'bg-white/10 text-white' : 'bg-gray-100 text-gray-400'
-                }`}>
+                <span className={`text-[9px] font-bold px-2 py-0.5 rounded-lg ${activeCategoryId === cat.id && searchQuery === '' ? 'bg-white/10 text-white' : 'bg-gray-100 text-gray-400'
+                  }`}>
                   {cat.services.length}
                 </span>
               </button>
@@ -240,7 +244,7 @@ const Services: React.FC = () => {
           {/* 3.2 Middle Panel - Service Cards */}
           <div className="flex-1 w-full space-y-10 min-h-[600px]">
             {filteredDisplay.length > 0 ? (
-              (searchQuery !== '' ? filteredDisplay : filteredDisplay.filter(c => activeCategoryId === 'all' || c.id === activeCategoryId)).map(cat => (
+              filteredDisplay.map(cat => (
                 <div key={cat.id} className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
                     <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
@@ -251,14 +255,13 @@ const Services: React.FC = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {cat.services.map(service => (
-                      <div 
+                      <div
                         key={service.id}
                         onClick={() => handleServiceClick(service)}
-                        className={`p-6 rounded-3xl border cursor-pointer transition-all flex justify-between items-center group ${
-                          selectedService?.id === service.id
+                        className={`p-6 rounded-3xl border cursor-pointer transition-all flex justify-between items-center group ${selectedService?.id === service.id
                             ? 'bg-white border-primary ring-8 ring-primary/5 shadow-2xl'
                             : 'bg-white border-gray-100 hover:border-gray-300 hover:shadow-lg'
-                        }`}
+                          }`}
                       >
                         <div className="space-y-1">
                           <h4 className={`text-sm font-black transition-colors ${selectedService?.id === service.id ? 'text-primary' : 'text-gray-900 group-hover:text-primary'}`}>
@@ -363,7 +366,7 @@ const Services: React.FC = () => {
           <div className="bg-gray-900 rounded-[4rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -ml-48 -mt-48"></div>
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-[100px] -mr-48 -mb-48"></div>
-            
+
             <h2 className="text-3xl md:text-5xl font-black mb-8 relative z-10">Can't Find a Service?</h2>
             <p className="text-white/40 text-lg font-medium mb-12 relative z-10 max-w-2xl mx-auto leading-relaxed">
               We handle over 200+ specialized government and commercial forms. Our operators can help you with custom requests even if not listed here.

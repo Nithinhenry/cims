@@ -42,7 +42,7 @@ const About: React.FC = () => {
     const timer = setInterval(() => {
       currentFrame++;
       const progress = currentFrame / totalFrames;
-      
+
       setCounts({
         apps: Math.floor(progress * 10000),
         operators: Math.floor(progress * 15),
@@ -63,7 +63,7 @@ const About: React.FC = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            
+
             <div className="lg:col-span-7 space-y-8">
               <div>
                 <span className="inline-block py-1.5 px-6 rounded-full bg-primary/10 text-primary text-xs font-black mb-6 border border-primary/20 uppercase tracking-[0.2em] shadow-sm">
@@ -75,7 +75,7 @@ const About: React.FC = () => {
               </div>
               <div className="space-y-6 text-lg md:text-xl text-gray-600 leading-relaxed font-medium max-w-2xl">
                 <p>
-                  Established in the heart of <span className="text-gray-900 font-bold">Ramanthapur, Hyderabad</span>, CIMS Online Services is a dedicated Mee Seva partner committed to bridging the digital divide.
+                  Established in the heart of <span className="text-gray-900 font-bold">Ramanthapur, Hyderabad</span>, CIMS ONLINE SERVICES is a dedicated Mee Seva partner committed to bridging the digital divide.
                 </p>
                 <p>
                   We specialize in high-speed processing of Aadhaar, PAN, and various government certificates. Our goal is simple: to make every citizen's interaction with digital governance smooth, transparent, and hassle-free.
@@ -88,9 +88,9 @@ const About: React.FC = () => {
                 <div className="absolute left-6 lg:left-8 top-10 bottom-10 w-1.5 bg-secondary/10 rounded-full"></div>
                 <div className="space-y-10">
                   {steps.map((step, idx) => (
-                    <div 
-                      key={idx} 
-                      className="relative step-animation flex items-center group" 
+                    <div
+                      key={idx}
+                      className="relative step-animation flex items-center group"
                       style={{ animationDelay: step.delay }}
                     >
                       <div className="absolute -left-[32px] lg:-left-[46px] w-14 h-14 rounded-full bg-white border-4 border-secondary/10 flex items-center justify-center z-10 shadow-sm group-hover:border-primary transition-all duration-300">
@@ -200,8 +200,8 @@ const About: React.FC = () => {
 
           <div className="flex flex-col md:flex-row items-stretch justify-center gap-8">
             {features.map((feature, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="flex-1 bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 text-center group hover:shadow-2xl hover:border-primary/20 transition-all duration-500 hover:-translate-y-2"
               >
                 <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-8 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-md">

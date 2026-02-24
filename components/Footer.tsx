@@ -7,15 +7,11 @@ const Footer: React.FC = () => {
     <footer className="bg-white border-t border-gray-100 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          <div className="space-y-6">
-            <Link to="/" className="inline-block transition-transform hover:scale-105">
-              <span className="text-2xl font-black tracking-tighter">
-                <span className="text-primary">CIMS</span> <span className="text-secondary">ONLINE</span>
-              </span>
+          <div className="footer__col footer__col--brand space-y-6">
+            <Link to="/">
+              <img src="/logo.png" alt="CIMS ONLINE SERVICES Logo" className="footer-logo-img" />
             </Link>
-            <p className="text-gray-500 text-sm leading-relaxed font-medium">
-              Ramanthapur's trusted Mee Seva partner. Making digital governance accessible, transparent, and hassle-free for everyone in Hyderabad since 2013.
-            </p>
+            <p className="text-gray-500 text-sm leading-relaxed font-medium">Mee Seva & Online Services Center in Ramanthapur, Hyderabad.</p>
           </div>
 
           <div>
@@ -59,7 +55,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[10px] font-black text-gray-400 text-center md:text-left uppercase tracking-widest">
-            © 2024 CIMS Online Services. Licensed Mee Seva Partner center.
+            © 2026 CIMS ONLINE SERVICES. Licensed Mee Seva Partner center.
           </p>
           <div className="flex space-x-6">
             <a href="#" className="text-gray-300 hover:text-primary transition-all transform hover:scale-110">

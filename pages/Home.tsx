@@ -20,8 +20,8 @@ const Home: React.FC = () => {
       const i = loopNum % servicesList.length;
       const fullText = servicesList[i];
 
-      setText(isDeleting 
-        ? fullText.substring(0, text.length - 1) 
+      setText(isDeleting
+        ? fullText.substring(0, text.length - 1)
         : fullText.substring(0, text.length + 1)
       );
 
@@ -39,84 +39,70 @@ const Home: React.FC = () => {
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, typingSpeed]);
 
-  const floatingVisuals = [
-    { icon: 'badge', top: '10%', right: '15%', delay: '0s', label: 'ID Card', color: 'primary' },
-    { icon: 'article', top: '35%', right: '35%', delay: '2s', label: 'Document', color: 'secondary' },
-    { icon: 'currency_rupee', top: '65%', right: '12%', delay: '4s', label: 'Rupee', color: 'primary' },
-    { icon: 'credit_card', top: '20%', right: '5%', delay: '1.5s', label: 'Credit Card', color: 'primary' },
-    { icon: 'electrical_services', top: '50%', right: '22%', delay: '3.5s', label: 'Utility Bill', color: 'secondary' },
-    { icon: 'local_activity', top: '75%', right: '30%', delay: '5.5s', label: 'Bus Ticket', color: 'primary' },
-  ];
-
   return (
     <div className="overflow-hidden">
-      {/* Hero Section: Minimalist Abstract Background */}
-      <section className="relative pt-20 pb-24 lg:pt-40 lg:pb-48 hero-gradient min-h-[95vh] flex items-center">
-        
-        {/* Abstract Background Elements */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          {/* Faint shapes on the left */}
-          <div className="absolute top-[20%] left-[5%] w-64 h-64 bg-primary/5 rounded-full shape-blur animate-pulse-slow"></div>
-          <div className="absolute bottom-[30%] left-[15%] w-48 h-48 bg-secondary/5 rounded-full shape-blur animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+      {/* Hero Section */}
+      <section className="relative pt-10 pb-4 sm:pt-16 sm:pb-16 lg:pt-28 lg:pb-32 lg:min-h-[70vh] flex items-center overflow-hidden">
 
-          {/* Floating Cluster on the Right half */}
-          {floatingVisuals.map((item, idx) => (
-            <div 
-              key={idx}
-              className="hidden lg:flex absolute flex-col items-center justify-center p-6 bg-white/40 backdrop-blur-xl rounded-3xl border border-white/60 shadow-2xl animate-float-spiral group hover:bg-white/60 transition-all duration-500 card-3d opacity-80"
-              style={{ 
-                top: item.top, 
-                right: item.right, 
-                animationDelay: item.delay,
-              }}
-            >
-              <div className="motion-blur-trail">
-                <span className={`material-icons-round text-5xl ${item.color === 'primary' ? 'text-primary' : 'text-secondary'}`}>
-                  {item.icon}
-                </span>
-              </div>
-              <span className="mt-2 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{item.label}</span>
-            </div>
-          ))}
+        {/* Video Background — only visible on desktop */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-0 left-0 object-cover z-0 hidden lg:block"
+          style={{ width: '100%', height: '100%', minWidth: '100%', minHeight: '100%' }}
+        >
+          <source src="/4k hero.mp4" type="video/mp4" />
+        </video>
 
-          {/* Mobile Simplified Shapes */}
-          <div className="lg:hidden absolute inset-0 opacity-40">
-            <div className="absolute top-10 right-10 w-24 h-24 bg-primary/10 rounded-full animate-float"></div>
-            <div className="absolute bottom-40 right-5 w-20 h-20 bg-secondary/10 rounded-full animate-float-reverse"></div>
-          </div>
-        </div>
-        
+        {/* Semi-transparent overlay for readability over video */}
+        <div className="absolute inset-0 bg-white/70 z-[1] hidden lg:block"></div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            
-            {/* Left Content (Clean half) */}
-            <div className="space-y-10 text-center lg:text-left">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+
+            {/* Left Content */}
+            <div className="space-y-6 sm:space-y-10 text-center lg:text-left">
               <div>
-                <span className="inline-block py-1.5 px-6 rounded-full bg-secondary/10 text-secondary text-xs font-black mb-8 border border-secondary/20 uppercase tracking-[0.3em] shadow-sm">
-                  Government & Online Services
+                <span className="inline-block py-1.5 px-4 sm:px-6 rounded-full bg-secondary/10 text-secondary text-[10px] sm:text-xs font-black mb-4 sm:mb-8 border border-secondary/20 uppercase tracking-[0.2em] sm:tracking-[0.3em] shadow-sm">
+                  Government &amp; Online Services
                 </span>
-                <h1 className="text-5xl lg:text-7xl xl:text-8xl font-black tracking-tighter text-gray-900 leading-[1.05]">
+                <h1 className="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-black tracking-tighter text-gray-900 leading-[1.1]">
                   CIMS <br />
-                  <span className="text-primary typewriter-cursor min-h-[1.2em] inline-block">
+                  <span className="text-primary typewriter-cursor min-h-[1.2em] inline-block text-2xl sm:text-4xl lg:text-5xl xl:text-6xl">
                     {text}
                   </span>
                 </h1>
-                <p className="mt-8 text-lg md:text-xl text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                <p className="mt-4 sm:mt-8 text-base sm:text-lg md:text-xl text-gray-800 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
                   Ramanthapur's leading digital hub for Aadhaar, PAN, Certificates, Banking, and utility services. Experience speed, transparency, and expert support.
                 </p>
               </div>
-              
-              <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start pt-4">
-                <Link to="/services" className="inline-flex items-center justify-center px-12 py-5 border border-transparent text-base font-black rounded-2xl text-white bg-primary hover:bg-primary-dark transition-all duration-300 shadow-xl shadow-primary/30 hover:scale-[1.03] hover:shadow-2xl uppercase tracking-widest active:scale-95">
+
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start pt-2 sm:pt-4">
+                <Link to="/services" className="inline-flex items-center justify-center px-8 py-4 sm:px-12 sm:py-5 border border-transparent text-sm sm:text-base font-black rounded-2xl text-white bg-primary hover:bg-primary-dark transition-all duration-300 shadow-xl shadow-primary/30 hover:scale-[1.03] hover:shadow-2xl uppercase tracking-widest active:scale-95">
                   View Services
                 </Link>
-                <Link to="/contact" className="inline-flex items-center justify-center px-12 py-5 border-2 border-secondary text-base font-black rounded-2xl text-secondary hover:bg-secondary hover:text-white transition-all duration-300 hover:scale-[1.03] uppercase tracking-widest active:scale-95">
+                <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 sm:px-12 sm:py-5 border-2 border-secondary text-sm sm:text-base font-black rounded-2xl text-secondary hover:bg-secondary hover:text-white transition-all duration-300 hover:scale-[1.03] uppercase tracking-widest active:scale-95">
                   Contact Us
                 </Link>
               </div>
             </div>
 
-            {/* Right half is intentionally kept for the abstract floating visuals */}
+            {/* Video — shown below text on mobile, hidden on desktop */}
+            <div className="lg:hidden mt-6">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full rounded-2xl shadow-lg"
+                style={{ maxHeight: '280px', objectFit: 'cover' }}
+              >
+                <source src="/4k hero.mp4" type="video/mp4" />
+              </video>
+            </div>
+
             <div className="hidden lg:block"></div>
           </div>
         </div>
@@ -157,7 +143,7 @@ const Home: React.FC = () => {
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="gridHome" width="80" height="80" patternUnits="userSpaceOnUse">
-                <path d="M 80 0 L 0 0 0 80" fill="none" stroke="white" strokeWidth="2"/>
+                <path d="M 80 0 L 0 0 0 80" fill="none" stroke="white" strokeWidth="2" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#gridHome)" />
@@ -167,7 +153,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-16">
             <div className="text-center md:text-left text-white max-w-2xl">
               <h2 className="text-4xl lg:text-5xl font-black mb-8">Serving Since 2013</h2>
-              <p className="text-white/80 font-bold text-xl leading-relaxed">As an official Mee Seva partner, CIMS Online Services has helped thousands of families in Ramanthapur navigate government systems with ease.</p>
+              <p className="text-white/80 font-bold text-xl leading-relaxed">As an official Mee Seva partner, CIMS ONLINE SERVICES has helped thousands of families in Ramanthapur navigate government systems with ease.</p>
             </div>
             <div className="flex flex-wrap justify-center gap-16 text-white">
               <div className="text-center">

@@ -1,21 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CIMS Online Services - Hyderabad</title>
+  <title>CIMS ONLINE SERVICES - Hyderabad</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="cims-logo.svg">
+  <link rel="icon" type="image/png" href="/logo.png">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             // Updated to match CIMS Logo exactly
-            primary: '#FF6A00', 
+            primary: '#FF6A00',
             'primary-dark': '#E65C00',
             secondary: '#2D5E1F',
             'secondary-dark': '#1F4215',
@@ -81,6 +82,7 @@
     html {
       scroll-behavior: smooth;
     }
+
     body {
       font-family: 'Public Sans', sans-serif;
     }
@@ -107,7 +109,7 @@
       visibility: hidden;
       pointer-events: none;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .nav-item--services:hover .services-mega,
@@ -122,13 +124,16 @@
     .services-mega::-webkit-scrollbar {
       width: 6px;
     }
+
     .services-mega::-webkit-scrollbar-track {
       background: transparent;
     }
+
     .services-mega::-webkit-scrollbar-thumb {
       background: #e2e8f0;
       border-radius: 10px;
     }
+
     .services-mega::-webkit-scrollbar-thumb:hover {
       background: #cbd5e1;
     }
@@ -151,8 +156,10 @@
       .logo-img {
         height: 38px;
       }
+
       .services-mega {
-        display: none; /* Handled as accordion in mobile nav */
+        display: none;
+        /* Handled as accordion in mobile nav */
       }
     }
 
@@ -162,31 +169,34 @@
       overflow: hidden;
       transition: max-height 0.3s ease-out, padding 0.3s ease;
     }
+
     .accordion-open .accordion-content {
       max-height: 800px;
       padding-top: 1rem;
     }
+
     .typewriter-cursor::after {
       content: '|';
       animation: blink 0.8s step-end infinite;
     }
+
     @keyframes blink {
-      from, to { color: transparent }
-      50% { color: #FF6A00 }
+
+      from,
+      to {
+        color: transparent
+      }
+
+      50% {
+        color: #FF6A00
+      }
     }
   </style>
-<script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0"
-  }
-}
-</script>
 </head>
+
 <body class="bg-background-light text-neutral-dark overflow-x-hidden">
   <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>
