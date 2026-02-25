@@ -56,8 +56,7 @@ const Home: React.FC = () => {
           <source src="/4k hero.mp4" type="video/mp4" />
         </video>
 
-        {/* Semi-transparent overlay for readability over video */}
-        <div className="absolute inset-0 bg-white/70 z-[1] hidden lg:block"></div>
+
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
